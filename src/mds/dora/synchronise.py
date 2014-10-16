@@ -1,3 +1,7 @@
+"""
+To be run once before the dora app is used, just to populate the dora models with GPS information
+"""
+
 import re
 from mds.core.models import Observation, Concept
 from mds.dora.models import EncounterLocation
@@ -18,8 +22,7 @@ def run():
         if len(gps_tuple) >= 2:
             gps_location = Point(gps_tuple[0], gps_tuple[1])
             print gps_location
-            encounter_location = EncounterLocation(encounter=observation.encounter, coordinates=gps_location)
+            encounter_location = EncounterLocation(encounter=observation.encounter,
+                                                   coordinates=gps_location,
+                                                   observation=observation)
             encounter_location.save()
-        
-        else:
-            pass
